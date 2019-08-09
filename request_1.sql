@@ -64,4 +64,4 @@ JOIN dj_plans ON dj_plans.id = dj_flats.plan_id
 JOIN dj_sections ON dj_sections.id = dj_flats.section_id
 JOIN dj_buildings ON dj_buildings.id = dj_flats.building_id
 JOIN dj_projects ON dj_projects.id = dj_flats.project_id
-WHERE dj_flats.project_id = 44 AND dj_plans.typex = 'flat';
+WHERE dj_flats.project_id IN (41, 42, 43, 44, 46, 47, 97) AND dj_plans.typex = 'flat';
