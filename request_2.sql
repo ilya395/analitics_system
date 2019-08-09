@@ -1,35 +1,9 @@
--- 1
+-- 2
 SELECT 
 -- id кв в системе
 dj_flats.id AS "ID квартиры",
 --
-dj_projects.name AS "Проект",
---
-dj_buildings.number AS "Номер дома",
---
-dj_flats.number AS "Номер квартиры",
---
-dj_plans.name AS "Тип планировки",
---
-CONCAT('https://sys24.net/media/', dj_plans.plan_img) AS "Ссылка на планировку",
---
-dj_plans.rooms_count AS "Комнатность",
---
-'квартира' AS "Тип",
---
-'' AS "Вид",
---
-dj_floors.number AS "Этаж",
---
-dj_sections.number AS "Секция",
---
-dj_plans.area AS "Общая площадь, кв.м.",
---
-dj_plans.jil_area AS "Жилая площадь за кв.м.",
---
-ROUND(dj_flats.price / dj_plans.area) AS "Цена за кв.м.",
---
-dj_flats.price AS "Цена за помещение, руб.",
+dj_flats.number AS "# квартиры",
 -- 
 CASE WHEN dj_flats.status_id = 14 THEN 'Рассрочка'
 	 WHEN dj_flats.status_id = 12 THEN 'Оформление'
@@ -56,7 +30,9 @@ END AS "Статус",
 CASE WHEN dj_flats.state_id = 1 THEN 'чистая'
 	 WHEN dj_flats.state_id = 2 THEN 'перепродажа'
 	 ELSE 'переуступка'
-END AS "Тип продажи"
+END AS "Тип продажи",
+--
+dj_flat_statuses_history.changedon AS "Дата"
 --
 FROM dj_flats 
 JOIN dj_floors ON dj_floors.id = dj_flats.floor_id 
@@ -64,4 +40,5 @@ JOIN dj_plans ON dj_plans.id = dj_flats.plan_id
 JOIN dj_sections ON dj_sections.id = dj_flats.section_id
 JOIN dj_buildings ON dj_buildings.id = dj_flats.building_id
 JOIN dj_projects ON dj_projects.id = dj_flats.project_id
+JOIN dj_flat_statuses_history ON dj_flat_statuses_history.flat_id = dj_flats.id
 WHERE dj_flats.project_id = 44 AND dj_plans.typex = 'flat';
